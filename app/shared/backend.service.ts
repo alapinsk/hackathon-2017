@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { getString, setString } from "application-settings";
 
+
 const tokenKey = "token";
 
 export class BackendService {
-  static apiUrl = "https://api.everlive.com/v1/GWfRtXi1Lwt4jcqK/";
+  static apiUrl = "https://test-flights-19683.firebaseio.com";
 
   static isLoggedIn(): boolean {
     return !!getString("token");

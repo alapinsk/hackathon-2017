@@ -5,17 +5,17 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { authProviders, appRoutes } from "./app.routing";
 import { AppComponent } from "./app.component";
-import { setStatusBarColors, BackendService, LoginService } from "./shared";
+import { setStatusBarColors, BackendService, FirebaseService } from "./shared";
 
 import { LoginModule } from "./login/login.module";
-import { GroceriesModule } from "./groceries/groceries.module";
+import { FlightsModule } from "./flights/flights.module";
 
 setStatusBarColors();
 
 @NgModule({
   providers: [
     BackendService,
-    LoginService,
+    FirebaseService,
     authProviders
   ],
   imports: [
@@ -24,7 +24,7 @@ setStatusBarColors();
     NativeScriptRouterModule,
     NativeScriptRouterModule.forRoot(appRoutes),
     LoginModule,
-    GroceriesModule,
+    FlightsModule,
   ],
   declarations: [
       AppComponent,

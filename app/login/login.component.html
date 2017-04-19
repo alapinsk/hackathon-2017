@@ -13,7 +13,7 @@
       stretch="none"
       class="initial-logo"></Image>
     <Label
-      text="GROCERIES"
+      text="LAST MINUTE"
       class="initial-label"></Label>
     <StackLayout
       (tap)="showMainContent()"
@@ -28,7 +28,7 @@
     class="main-container">
     <Label
       class="main-label"
-      text="GROCERIES"
+      text="LAST MINUTE"
       [color]="isLoggingIn? 'black' : 'white'"></Label>
 
     <GridLayout #formControls
@@ -66,6 +66,19 @@
       [isEnabled]="!isAuthenticating"
       class="submit-button"
       (tap)="submit()"></Button>
+
+    <Button
+      text="Login with Google"
+      [isEnabled]="!isAuthenticating"
+      class="loginBtn loginBtn--google"
+      (tap)="google()"></Button>
+
+    <Button
+      text="Login with Facebook"
+      [isEnabled]="!isAuthenticating"
+      class="loginBtn loginBtn--facebook"
+      (tap)="facebook()"></Button>
+
 
     <Label
       class="forgot-password-label"

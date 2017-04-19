@@ -8,7 +8,9 @@ import { prompt } from "ui/dialogs";
 import { Page } from "ui/page";
 import { TextField } from "ui/text-field";
 
-import { alert, LoginService, User } from "../shared";
+import { alert, FirebaseService, User } from "../shared";
+
+
 
 @Component({
   selector: "gr-login",
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
   @ViewChild("password") password: ElementRef;
 
   constructor(private router: Router,
-    private userService: LoginService,
+    private userService: FirebaseService,
     private page: Page) {
     this.user = new User();
   }
@@ -38,6 +40,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.page.actionBarHidden = true;
   }
+
+  
 
   focusPassword() {
     this.password.nativeElement.focus();
@@ -51,21 +55,36 @@ export class LoginComponent implements OnInit {
 
     this.isAuthenticating = true;
     if (this.isLoggingIn) {
-      this.login();
+      this.email();
     } else {
       this.signUp();
     }
   }
-
-  login() {
+  
+  checkConnection(){
     if (getConnectionType() === connectionType.none) {
-      alert("Groceries requires an internet connection to log in.");
+      alert("Flights requires an internet connection to log in.");
       return;
     }
+  }
+  email(){
+    this.checkConnection();
+    this.login(this.userService.loginWithEmail(this.user));
+  }
+  google(){
+    this.checkConnection();
+    this.login(this.userService.loginWithGoogle());
+  }
+  facebook(){
+    this.checkConnection();
+    this.login(this.userService.loginWithFacebook());
+  }
 
-    this.userService.login(this.user)
-      .subscribe(
-        () => {
+  login(loginPromise: Promise<any>) {
+    loginPromise
+      .then(
+        (result) => {
+          console.log(result + " result");
           this.isAuthenticating = false;
           this.router.navigate(["/"]);
         },
@@ -73,49 +92,48 @@ export class LoginComponent implements OnInit {
           alert("Unfortunately we could not find your account.");
           this.isAuthenticating = false;
         }
-      );
+      );   
   }
 
   signUp() {
     if (getConnectionType() === connectionType.none) {
-      alert("Groceries requires an internet connection to register.");
+      alert("Flights requires an internet connection to register.");
       return;
     }
 
-    this.userService.register(this.user)
-      .subscribe(
-        () => {
-          alert("Your account was successfully created.");
-          this.isAuthenticating = false;
-          this.toggleDisplay();
-        },
-        (message) => {
-          // TODO: Verify this works
-          if (message.match(/same user/)) {
-            alert("This email address is already in use.");
-          } else {
-            alert("Unfortunately we were unable to create your account.");
+    this.userService.registerWithEmail(this.user)
+      .then(
+          (result) => {
+            alert("Your account was successfully created." + result);
+            this.isAuthenticating = false;
+            this.toggleDisplay();
+          },
+          (message) => {
+            alert("Unfortunately we were unable to create your account." + message);
+            this.isAuthenticating = false;
           }
-          this.isAuthenticating = false;
-        }
       );
   }
+
 
   forgotPassword() {
     prompt({
       title: "Forgot Password",
-      message: "Enter the email address you used to register for Groceries to reset your password.",
+      message: "Enter the email address you used to register for Flights to reset your password.",
       defaultText: "",
       okButtonText: "Ok",
       cancelButtonText: "Cancel"
     }).then((data) => {
       if (data.result) {
         this.userService.resetPassword(data.text.trim())
-          .subscribe(() => {
-            alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
-          }, () => {
-            alert("Unfortunately, an error occurred resetting your password.");
-          });
+          .then(
+              function () {
+                alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
+              },
+              function (errorMessage) {
+                alert("Unfortunately, an error occurred resetting your password.");
+              }
+          );
       }
     });
   }

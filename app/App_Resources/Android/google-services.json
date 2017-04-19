@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "896915315280",
+    "firebase_url": "https://ryanair-hackathon2017.firebaseio.com",
+    "project_id": "ryanair-hackathon2017",
+    "storage_bucket": "ryanair-hackathon2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896915315280:android:fd3de30409d1c3ea",
+        "android_client_info": {
+          "package_name": "org.nativescript.flights"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896915315280-rm3b0h6kvguj4bra6a0b7pb1b096jmv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.flights",
+            "certificate_hash": "17e3e6fae517d65b1a21232b29cbe4a4c775b37f"
+          }
+        },
+        {
+          "client_id": "896915315280-0i87dbkoopjodhat4s1o7c7gjvljsjd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYHlw6foA2f1DYDnRJzLbonPsj77jJCeE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896915315280-0i87dbkoopjodhat4s1o7c7gjvljsjd7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

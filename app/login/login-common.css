@@ -64,11 +64,33 @@ TextField.light {
   color: #C4AFB4;
   placeholder-color: #C4AFB4;
 }
+
+
 .submit-button {
   background-color: #CB1D00;
   color: white;
   margin-top: 20;
 }
+
+
+/* Facebook */
+.loginBtn--facebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+}
+
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background-color: #DD4B39;
+  color: #fff;
+  box-shadow: 0 3px 0 #BB3F30;
+}
+
+
 
 .forgot-password-label {
   font-size: 13;

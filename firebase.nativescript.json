@@ -1,0 +1,11 @@
+{
+    "using_ios": false,
+    "using_android": true,
+    "remote_config": false,
+    "messaging": true,
+    "crash_reporting": false,
+    "storage": true,
+    "facebook_auth": true,
+    "google_auth": true,
+    "admob": false
+}
