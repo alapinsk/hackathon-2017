@@ -1,21 +1,47 @@
 import { Injectable } from "@angular/core";
-import { getString, setString } from "application-settings";
+import { Http, Headers, Response, URLSearchParams, RequestOptions } from "@angular/http";
+import { Observable } from "rxjs/Rx";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/map";
 
+import { Password } from "../password";
+import { Config } from "./config";
+import { Airport } from "./models/airport.model";
 
-const tokenKey = "token";
-
+@Injectable()
 export class BackendService {
-  static apiUrl = "https://test-flights-19683.firebaseio.com";
+  
+  airportList: Airport[];
+  
+  constructor(private options: RequestOptions, private http: Http) {}
 
-  static isLoggedIn(): boolean {
-    return !!getString("token");
+
+  getNearbyAirports(geolocation) {
+    let params: URLSearchParams = new URLSearchParams;
+    params.set('apikey', Password.apikey);
+    params.set('latitude', geolocation.latitude)
+    params.set('longitude', geolocation.longitude)
+
+    this.options.search = params;
+    return this.http.get(
+      Config.apiUrl + "geolocation/3/nearbyAirports",
+      this.options
+    )
+    .map(response => response.json())
+    .map(this.parseGeoloc)
+    .catch(this.handleErrors);
   }
 
-  static get token(): string {
-    return getString("token");
+  parseGeoloc(response) {
+    this.airportList = response.map(airport => {
+      return new Airport(airport.iataCode, airport.name)         
+    });
+    return this.airportList;
   }
 
-  static set token(theToken: string) {
-    setString("token", theToken);
+  handleErrors(error: Response) {
+    console.log(JSON.stringify(error.json()));
+    console.log(error.url);
+    return Observable.throw(error);
   }
 }

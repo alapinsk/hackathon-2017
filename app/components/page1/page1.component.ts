@@ -1,0 +1,55 @@
+import {Component, OnInit, ChangeDetectionStrategy, EventEmitter} from "@angular/core";
+import {Location} from "@angular/common";
+import {Http, Headers, RequestOptions} from "@angular/http"
+import {Router} from "@angular/router";
+import * as Utility from "utils/utils";
+import { BackendService } from "../../shared";
+
+@Component({
+    selector: "page1",
+    templateUrl: "./components/page1/page1.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class Page1 implements OnInit {
+
+    public constructor(private router: Router, private http: Http, 
+                       private location: Location, private backendService: BackendService) {
+        
+    }
+
+    public ngOnInit() {
+        this.location.subscribe(() => { //on return load again 
+            this.loadData();
+        });
+        this.loadData();
+    }
+
+    
+    private loadData() {
+        this.backendService.getNearbyAirports({latitude: 51.109843, longitude: 17.033244})
+        .subscribe(
+            (result) => {
+                console.log("Success! " + result);
+            },
+            (error) => {
+            alert("An error occured!" + error);
+            }
+        );
+    }
+
+    private loadTestData(){
+        
+    }
+    
+
+    public navigateToPage2() {
+        this.router.navigate(["page2"]);
+    }
+
+    public doSomething() {
+
+        alert("Bum bum!");
+        
+    }
+
+}

@@ -1,0 +1,14 @@
+<ActionBar title="Page1">
+    <ActionItem text="Page2" ios.position="right" (tap)="navigateToPage2()"></ActionItem>
+</ActionBar>
+<GridLayout>
+    <ListView [items]="items | async" class="list-group">
+        <Template let-url="item">
+            <StackLayout>
+            <Label [text]="item.price"></Label>
+            <Label [text]="item.OutboundDepartureAirportIataCode"></Label>
+            <Label [text]="item.InboundDepartureAirportIataCode"></Label>
+           </StackLayout>
+        </Template>
+    </ListView>
+</GridLayout>
