@@ -5,10 +5,9 @@ export class Leg {
     date: string;
     departureTime: string;
     arrivalTime: string;
-    price: {
-        value: number;
-        currencySymbol: string;
-    }
+    price: number;
+    currency: string;
+    
 
     constructor (leg) {
         this.destination = leg.arrivalAirport.name;
@@ -17,6 +16,7 @@ export class Leg {
         this.departureTime = departureDate.format("HH:mm");
         this.arrivalTime = arrivalDate.format("HH:mm");
         this.date = departureDate.format("Do MMM YYYY");
-        this.price = { value: leg.price.value, currencySymbol: leg.price.currencySymbol };
+        this.price = leg.price.value;
+        this.currency = leg.price.currencySymbol;
     }
 } 

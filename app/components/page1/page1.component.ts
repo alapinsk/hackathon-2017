@@ -6,14 +6,18 @@ import {Router} from "@angular/router";
 import * as Utility from "utils/utils";
 import { BackendService } from "../../shared";
 
+import * as elementRegistryModule from "nativescript-angular/element-registry";
+elementRegistryModule.registerElement("CardView", () => require("nativescript-cardview").CardView);
 
 @Component({
     selector: "page1",
+    styleUrls: ["./components/page1/page1.component.css"],
     templateUrl: "./components/page1/page1.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Page1 implements OnInit {
 
+    selectedWeekend = "20/12/2017 - 22/12/2017";
     public constructor(private router: Router, private http: Http, 
                        private location: Location, private backendService: BackendService) {
         
@@ -25,9 +29,6 @@ export class Page1 implements OnInit {
         });
         this.loadData();
     }
-
-    
-
     
     private loadData() {
         this.backendService.getNearbyAirports()

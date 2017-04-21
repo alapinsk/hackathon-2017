@@ -114,6 +114,7 @@ export class BackendService {
     this.flightList = response.fares.map(route => {
       return new Flight(route)         
     });
+    console.dump(this.flightList)
     this.zone.run(() => {
       this.flights.next([...this.flightList]);
     });

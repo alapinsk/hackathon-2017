@@ -1,0 +1,52 @@
+ActionBar {
+    background-color: #062B71;
+    color: white;
+}
+
+.cardStyle {
+    background-color: #073590;
+    color: #fff;
+}
+
+.centering {
+    left: -500px;
+    position: absolute;
+}
+
+.text-card {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hover-img {
+    font-size: 22px;
+}
+
+.card {
+    height: 50px;
+}
+
+label {
+    horizontal-align: center;
+}
+
+.paginator {
+    color: #2091EB;
+}
+
+.info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.yellow {
+    background-color: #F1C933;
+}
+
+.black-text {
+    color: #2E2E2E;
+}
+
+.my-city {
+    font-weight: bold;
+}
