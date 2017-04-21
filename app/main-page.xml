@@ -1,0 +1,10 @@
+<Page loaded="pageLoaded">
+  <ActionBar title="My App" class="action-bar"></ActionBar>
+  <GridLayout rows="auto, *, auto">
+    <WrapLayout row="0" orientation="horizontal" >
+      <Button text="Enable Location" tap="enableLocationTap"/>
+      <Button text="Get Current Location" tap="buttonGetLocationTap"/>
+      <TextField hint="Location coords" text="{{ coordinates }}" id="coordinates"/>
+    </WrapLayout>
+  </GridLayout>
+</Page>
