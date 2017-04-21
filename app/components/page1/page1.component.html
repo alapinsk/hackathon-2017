@@ -1,14 +1,13 @@
 <ActionBar title="Page1">
     <ActionItem text="Page2" ios.position="right" (tap)="navigateToPage2()"></ActionItem>
 </ActionBar>
-<GridLayout>
-    <ListView [items]="items | async" class="list-group">
-        <Template let-url="item">
-            <StackLayout>
-            <Label [text]="item.price"></Label>
-            <Label [text]="item.OutboundDepartureAirportIataCode"></Label>
-            <Label [text]="item.InboundDepartureAirportIataCode"></Label>
-           </StackLayout>
-        </Template>
-    </ListView>
-</GridLayout>
+<ListView [items]="backendService.flights | async">
+    <template let-item="item">
+        <GridLayout columns="*, auto" class="container">
+            <!-- Wrap in containers for bigger tap targets -->
+            <StackLayout col="0" orientation="horizontal" class="tap-target">
+                <Label [text]="item.outbound.destination"></Label>
+            </StackLayout>
+        </GridLayout>
+    </template>
+</ListView>
