@@ -83,21 +83,21 @@ export class BackendService {
       return new Airport(airport.iataCode, airport.name)         
     });
     //return this.airportList;
-    //this.zone.run(() => {
-    //  this.airports.next([...this.airportList]);
-    //});
+    this.zone.run(() => {
+     this.airports.next([...this.airportList]);
+    });
     this.airports.next([...this.airportList]);
   }
 
 
-  getAllFlights(airport, departureMin, departureMax, returnMin, returnMax) {
+  getAllFlights(airport, dates) {
     let params: URLSearchParams = new URLSearchParams;
     params.set('apikey', Password.apikey);
     params.set('departureAirportIataCode', airport)
-    params.set('outboundDepartureDateFrom', departureMin)
-    params.set('outboundDepartureDateTo', departureMax)
-    params.set('inboundDepartureDateFrom', returnMin)
-    params.set('inboundDepartureDateTo', returnMax)
+    params.set('outboundDepartureDateFrom', dates[0])
+    params.set('outboundDepartureDateTo', dates[1])
+    params.set('inboundDepartureDateFrom', dates[2])
+    params.set('inboundDepartureDateTo', dates[3])
     this.options.search = params;
     return this.http.get(
       Config.apiUrl + "farefinder/3/roundTripFares",

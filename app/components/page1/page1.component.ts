@@ -9,6 +9,8 @@ import { BackendService } from "../../shared";
 import * as elementRegistryModule from "nativescript-angular/element-registry";
 elementRegistryModule.registerElement("CardView", () => require("nativescript-cardview").CardView);
 
+import * as moment from "moment"
+
 @Component({
     selector: "page1",
     styleUrls: ["./components/page1/page1.component.css"],
@@ -18,6 +20,11 @@ elementRegistryModule.registerElement("CardView", () => require("nativescript-ca
 export class Page1 implements OnInit {
 
     selectedWeekend = "20/12/2017 - 22/12/2017";
+    currentWeek = 0;
+    format = "YYYY-MM-DD"
+    airport;
+    airportCode;
+
     public constructor(private router: Router, private http: Http, 
                        private location: Location, private backendService: BackendService) {
         
@@ -25,8 +32,10 @@ export class Page1 implements OnInit {
 
     public ngOnInit() {
         this.location.subscribe(() => { //on return load again 
+            this.getWeekend();
             this.loadData();
         });
+        this.getWeekend();
         this.loadData();
     }
     
@@ -37,7 +46,9 @@ export class Page1 implements OnInit {
                 // console.log("Success! ")
                 // console.dump(result);
                 this.backendService.airports.subscribe((result) => {
-                    this.loadFlights(result[0].code);
+                    this.airport = result[0].name;
+                    this.airportCode = result[0].code;
+                    this.loadFlights(this.airportCode);
                 })
                 
             },
@@ -48,7 +59,7 @@ export class Page1 implements OnInit {
     }
 
      private loadFlights(airport) {
-        this.backendService.getAllFlights(airport, "2017-04-28", "2017-04-29", "2017-04-29", "2017-04-30")
+        this.backendService.getAllFlights(airport, this.getWeekend())
         .subscribe(
             (result) => {
                 // console.log("Success! ")
@@ -60,11 +71,25 @@ export class Page1 implements OnInit {
         );
     }
 
+    getWeekend() {
+        let week = ([5, 6, 7].indexOf(moment().isoWeekday()))? 1: 0;
+        const outboundDateMin = moment().add(week + this.currentWeek, 'weeks').startOf('isoWeek').add('days', 4);
+        const outboundDateMax = outboundDateMin.clone().add('days', 1);
+        const inboundDateMin = outboundDateMax.clone();
+        const inboundDateMax = inboundDateMin.clone().add('days', 1);
+        this.selectedWeekend = `${outboundDateMin.format(this.format)} - ${inboundDateMax.format(this.format)}`;
+        return [outboundDateMin.format(this.format), outboundDateMax.format(this.format), inboundDateMin.format(this.format), inboundDateMax.format(this.format)]
+    }
+
     selectorWeekend(back = false) {
-        if (!back)
-            this.selectedWeekend = "27/12/2017 - 29/12/2017";
-        else
-            this.selectedWeekend = "20/12/2017 - 22/12/2017";
+        if (!back) {
+            this.currentWeek += 1
+            this.loadFlights(this.airportCode);
+        }
+        else {
+            this.currentWeek = (this.currentWeek === 0) ? 0 : this.currentWeek - 1;
+            this.loadFlights(this.airportCode);
+        }
     }
 
     public navigateToPage2() {
