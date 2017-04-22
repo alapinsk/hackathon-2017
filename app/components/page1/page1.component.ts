@@ -19,11 +19,11 @@ import * as moment from "moment"
 })
 export class Page1 implements OnInit {
 
-    selectedWeekend = "20/12/2017 - 22/12/2017";
-    currentWeek = 0;
-    format = "YYYY-MM-DD"
-    airport;
-    airportCode;
+    selectedWeekend: string = "20/12/2017 - 22/12/2017";
+    currentWeek: number = 0;
+    format: string = "YYYY-MM-DD"
+    airport: string = "";
+    airportCode: string = "";
 
     public constructor(private router: Router, private http: Http, 
                        private location: Location, private backendService: BackendService) {
@@ -40,26 +40,21 @@ export class Page1 implements OnInit {
     }
     
     private loadData() {
-        this.backendService.getNearbyAirports()
-        .subscribe(
-            (result) => {
-                // console.log("Success! ")
-                // console.dump(result);
-                this.backendService.airports.subscribe((result) => {
-                    this.airport = result[0].name;
-                    this.airportCode = result[0].code;
-                    this.loadFlights(this.airportCode);
+        console.log("Hoorraayy!");
+        this.backendService.getGeoLocation().subscribe((location) => {
+            console.log("Hoorraayy!");
+            this.backendService.getNearbyAirports(location).subscribe((result) => {
+                console.log("Hoorraayy!");
+                this.backendService.getAllFlights(this.getWeekend()).subscribe((result) => {
+                    console.log("Hoorraayy!");
+                   
                 })
-                
-            },
-            (error) => {
-            alert("An error occured!" + error);
-            }
-        );
+            })
+        })
     }
 
      private loadFlights(airport) {
-        this.backendService.getAllFlights(airport, this.getWeekend())
+        this.backendService.getAllFlights(this.getWeekend())
         .subscribe(
             (result) => {
                 // console.log("Success! ")

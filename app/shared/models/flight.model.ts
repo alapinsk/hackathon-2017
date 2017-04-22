@@ -6,8 +6,8 @@ export class Flight {
     inbound: Leg;
     totalPrice: number;
     currency: string;
-    weather: Weather
-    beer: number
+    weather: Weather;
+    beer: number;
 
     constructor (route) {
         this.outbound = new Leg(route.outbound);
@@ -15,6 +15,8 @@ export class Flight {
         this.totalPrice = route.summary.price.value;
         this.currency = route.summary.price.currencySymbol;
         this.beer = Math.floor(Math.random() * 10 + 1);
+        
+        this.weather = new Weather("");
     }
 
 }
