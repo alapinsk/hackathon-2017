@@ -1,0 +1,51 @@
+<!--<ActionBar title="Page1">
+    <ActionItem text="Page2" ios.position="right" (tap)="navigateToPage2()"></ActionItem>
+</ActionBar>
+<GridLayout>
+    <ListView [items]="items | async" class="list-group">
+        <Template let-url="item">
+            <StackLayout>
+            <Label [text]="item.price"></Label>
+            <Label [text]="item.OutboundDepartureAirportIataCode"></Label>
+            <Label [text]="item.InboundDepartureAirportIataCode"></Label>
+           </StackLayout>
+        </Template>
+    </ListView>
+</GridLayout>-->
+
+<GridLayout>
+
+  <GridLayout #background
+    scaleX="1.4"
+    scaleY="1.4"
+    class="background"
+    (loaded)="startBackgroundAnimation(background)"></GridLayout>
+
+  <StackLayout #initialContainer
+    class="initial-container">
+    <Image
+      src="res://logo_login"
+      stretch="none"
+      class="initial-logo"></Image>
+    <Label
+      text="LAST MINUTE"
+      class="initial-label"></Label>
+    <StackLayout
+      (tap)="navigateToPage1()"
+      class="initial-button">
+      <Label
+        text="Let's fly!'"
+        class="initial-button-label"></Label>
+    </StackLayout>
+  </StackLayout>
+
+  <!-- The fruit logo that appears within the container -->
+  <AbsoluteLayout #logoContainer
+    class="logo-container">
+    <Image
+      src="res://logo_login"
+      stretch="none"></Image>
+  </AbsoluteLayout>
+
+</GridLayout>
+
