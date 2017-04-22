@@ -1,15 +1,30 @@
-<!--<ActionBar title="Page1">
-    <ActionItem text="Page2" ios.position="right" (tap)="navigateToPage2()"></ActionItem>
-</ActionBar>
-<ListView [items]="backendService.flights | async">
-    <template let-item="item">
-        <GridLayout columns="*, auto" class="container">
-            <StackLayout col="0" orientation="horizontal" class="tap-target">
-                <Label [text]="item.outbound.destination"></Label>
-            </StackLayout>
-        </GridLayout>
-    </template>
-</ListView>-->
+<!--<ActionBar title="Your plan for the weekend"></ActionBar>
+<StackLayout class="m-t-10">
+    <GridLayout rows="20,30" columns="*, *">
+        <Label horizontalAlignment="center" class="my-city" text="Dublin" colSpan="3" row="0" textWrap="true"></Label>
+        <Label class="text-card paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="Previous" colSpan="1" textWrap="true" col="0"></Label>
+        <Label class="text-card paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next" colSpan="1" textWrap="true" col="2"></Label>
+        <Label class="m-t-5 " horizontalAlignment="center" [text]="selectedWeekend" colSpan="3" row="1" textWrap="true"></Label>
+    </GridLayout>
+    <ListView [items]="backendService.flights | async">
+        <template let-item="item">
+            <GridLayout rows="*,*" columns="2*, *">
+                <Image [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
+                <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
+                <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
+                <StackLayout row="3" colSpan="3">
+                    <Label class="text-card info" horizontalAlignment="center" [text]="'In:    '+item.outbound.date + ' ' + item.outbound.departureTime + '-' + item.outbound.arrivalTime"></Label>
+                    <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
+                    <StackLayout class="hr-light"></StackLayout>
+                    <GridLayout class="yellow" rows="*,*" columns="2*,*">
+                        <Label class="text-card info black-text" horizontalAlignment="left" [text]="'22°C sunny'" row="1" col="0" textWrap="true" col="0"></Label>
+                        <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: 2 '+ item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </GridLayout>
+        </template>
+    </ListView>
+</StackLayout>-->
 
 <ActionBar title="Your plan for the weekend"></ActionBar>
 <StackLayout class="m-t-10">
@@ -21,24 +36,26 @@
     </GridLayout>
     <ListView [items]="backendService.flights | async">
         <template let-item="item">
-                        <StackLayout col="0" orientation="horizontal" class="tap-target">
-                          <CardView class="cardStyle" margin="10" elevation="10" radius="5">
-                            <GridLayout rows="*,*" columns="2*, *">
-                                <!--<Image [src]="getImage(item.imgPath)" stretch="aspectFit" colSpan="2" row="0"></Image>-->
-                                <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
-                                <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
-                                <StackLayout row="3" colSpan="3">
-                                    <Label class="text-card info" horizontalAlignment="center" [text]="'In:    '+item.outbound.date + ' ' + item.outbound.departureTime + ' ' + item.outbound.arrivalTime"></Label>
-                                    <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date"></Label>
-                                    <StackLayout class="hr-light"></StackLayout>
-                                    <GridLayout class="yellow" rows="*,*" columns="2*,*">
-                                        <!--<Label class="text-card info black-text" horizontalAlignment="left" [text]="item.weather.degrees+'ºC ('+item.weather.status+')' " row="1" col="0" textWrap="true" col="0"></Label>-->
-                                        <!--<Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: '+ item.priceBeer.cost + ' '+ item.priceBeer.currency + '/l'" textWrap="true" row="1" col="1"></Label>-->
-                                    </GridLayout>
-                                </StackLayout>
-                            </GridLayout>
-                        </CardView>  
-                        </StackLayout>
-                </template>
+            <ScrollView row="0">
+                <StackLayout>
+                    <CardView class="cardStyle" margin="10" elevation="10" radius="5">
+                        <GridLayout rows="*,*" columns="2*, *">
+                            <Image [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
+                            <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
+                            <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
+                            <StackLayout row="3" colSpan="3">
+                                <Label class="text-card info" horizontalAlignment="center" [text]="'In:    '+item.outbound.date + ' ' + item.outbound.departureTime + '-' + item.outbound.arrivalTime"></Label>
+                                <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
+                                <StackLayout class="hr-light"></StackLayout>
+                                <GridLayout class="yellow" rows="*,*" columns="2*,*">
+                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="'22°C sunny'" row="1" col="0" textWrap="true" col="0"></Label>
+                                    <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: 2 '+ item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
+                                </GridLayout>
+                            </StackLayout>
+                        </GridLayout>
+                    </CardView>  
+                </StackLayout>
+            </ScrollView>
+        </template>
     </ListView>
 </StackLayout>

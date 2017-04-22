@@ -75,4 +75,8 @@ export class Page1 implements OnInit {
         
     }
 
+     getImage(nameFile: string): string {
+        return `~/images/${nameFile}.jpg`;
+    }
+
 }

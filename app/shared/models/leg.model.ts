@@ -1,6 +1,7 @@
 let moment = require("moment")
 
 export class Leg {
+    code: string;
     destination: string;
     date: string;
     departureTime: string;
@@ -10,6 +11,7 @@ export class Leg {
     
 
     constructor (leg) {
+        this.code = leg.arrivalAirport.iataCode.toLowerCase()
         this.destination = leg.arrivalAirport.name;
         const departureDate = moment(leg.departureDate);
         const arrivalDate = moment(leg.arrivalDate);
