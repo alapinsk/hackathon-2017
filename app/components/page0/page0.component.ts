@@ -7,6 +7,8 @@ import { View } from "ui/core/view";
 import { Page } from "ui/page";
 import * as Utility from "utils/utils";
 
+import geolocation = require("nativescript-geolocation");
+
 @Component({
     selector: "page0",
     templateUrl: "./components/page0/page0.component.html",
@@ -23,10 +25,18 @@ export class Page0 implements OnInit {
 
     ngOnInit() {
          this.page.actionBarHidden = true;
+        if (!geolocation.isEnabled()) {
+            geolocation.enableLocationRequest();
+        }
     }
 
     public navigateToPage1() {
-        this.router.navigate(["page1"]);
+        if (geolocation.isEnabled()) {
+            this.router.navigate(["page1"]);
+        }else {
+            geolocation.enableLocationRequest();
+        }
+
     }
 
     startBackgroundAnimation(background) {
