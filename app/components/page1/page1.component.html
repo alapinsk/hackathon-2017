@@ -48,8 +48,8 @@
                                 <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
                                 <StackLayout class="hr-light"></StackLayout>
                                 <GridLayout class="yellow" rows="*,*" columns="2*,*">
-                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="'22°C sunny'" row="1" col="0" textWrap="true" col="0"></Label>
-                                    <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: 2 '+ item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
+                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="item.weather.temp +'°C ' + item.weather.desc" row="1" col="0" textWrap="true" col="0"></Label>
+                                    <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: ' + item.beer  + ' ' + item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
                                 </GridLayout>
                             </StackLayout>
                         </GridLayout>

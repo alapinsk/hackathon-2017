@@ -103,7 +103,7 @@ export class Page1 implements OnInit {
     }
 
      getImage(nameFile: string = "waw"): string {
-        return `~/components/page1/images/${nameFile}.jpg`;
+        return `~/images/${nameFile}.jpg`;
     }
 
 }

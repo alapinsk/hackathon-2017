@@ -9,6 +9,7 @@ import { Password } from "../password";
 import { Config } from "./config";
 import { Airport } from "./models/airport.model";
 import { Flight } from "./models/flight.model";
+import { Weather } from "./models/weather.model";
 
 import geolocation = require("nativescript-geolocation");
 import * as enums_1 from "ui/enums";
@@ -18,9 +19,10 @@ export class BackendService {
   
   airports: BehaviorSubject<Array<Airport>> = new BehaviorSubject([]);
   flights: BehaviorSubject<Array<Flight>> = new BehaviorSubject([]);
+
   public airportList: Airport[];
   public flightList: Flight[];
-  
+
   constructor(private options: RequestOptions, private http: Http, private zone: NgZone) {}
 
 //   getGeoLocation () {
@@ -111,14 +113,43 @@ export class BackendService {
   }
 
    parseFlights(response) {
-    this.flightList = response.fares.map(route => {
-      return new Flight(route)         
+    this.flightList = []
+    response.fares.forEach(route => {
+       this.getWeather(route.outbound.arrivalAirport.name).subscribe((weather) => {
+          let flight =  new Flight(route)  
+          flight.weather = weather;
+          this.flightList.push(flight)
+           this.zone.run(() => {
+          this.flights.next([...this.flightList]);
+        });
+       })
+
     });
-    console.dump(this.flightList)
-    this.zone.run(() => {
-      this.flights.next([...this.flightList]);
-    });
+   
     //return this.flightList;
+  }
+
+   getWeather(airport) {
+    let params: URLSearchParams = new URLSearchParams;
+    params.set('APPID', Password.wheatherApikey);
+    params.set('q', airport)
+    params.set('units', "metric")
+    this.options.headers["Content-Type"] = "application/json"
+    this.options.search = params;
+    return this.http.get(
+      "http://api.openweathermap.org/data/2.5/weather",
+      this.options
+    )
+    .map(response => response.json())
+    .map((response) => {
+      return this.parseWeather(response);
+    })
+    .catch(this.handleErrors);
+  }
+
+  parseWeather(response) {
+    return new Weather(response)
+   
   }
 
   handleErrors(error: Response) {
