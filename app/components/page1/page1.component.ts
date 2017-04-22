@@ -60,10 +60,12 @@ export class Page1 implements OnInit {
         );
     }
 
-    private loadTestData(){
-        
+    selectorWeekend(back = false) {
+        if (!back)
+            this.selectedWeekend = "27/12/2017 - 29/12/2017";
+        else
+            this.selectedWeekend = "20/12/2017 - 22/12/2017";
     }
-    
 
     public navigateToPage2() {
         this.router.navigate(["page2"]);
