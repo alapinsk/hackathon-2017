@@ -5,7 +5,6 @@ ActionBar {
 
 .cardStyle {
     background-color: #073590;
-    color: #fff;
 }
 
 .centering {
@@ -21,7 +20,7 @@ ActionBar {
 .hover-img {
     font-size: 22px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .card {
@@ -39,6 +38,7 @@ label {
 .info {
     margin-top: 5px;
     margin-bottom: 5px;
+    color: #fff;
 }
 
 .yellow {

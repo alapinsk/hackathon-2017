@@ -30,7 +30,7 @@
 <StackLayout class="m-t-10">
     <GridLayout rows="20,30" columns="*, *">
         <Label horizontalAlignment="center" class="my-city" [text]="airport" colSpan="3" row="0" textWrap="true"></Label>
-        <Label class="text-card paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="Previous" colSpan="1" textWrap="true" col="0"></Label>
+        <Label *ngIf="currentWeek!==0" class="text-card paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="Previous" [isEnabled]="(currentWeek!==0)" colSpan="1" textWrap="true" col="0"></Label>
         <Label class="text-card paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next" colSpan="1" textWrap="true" col="2"></Label>
         <Label class="m-t-5 " horizontalAlignment="center" [text]="selectedWeekend" colSpan="3" row="1" textWrap="true"></Label>
     </GridLayout>
@@ -40,7 +40,7 @@
                 <StackLayout>
                     <CardView class="cardStyle" margin="10" elevation="10" radius="5">
                         <GridLayout rows="*,*" columns="2*, *">
-                            <Image [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
+                            <Image  [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
                             <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
                             <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
                             <StackLayout row="3" colSpan="3">
