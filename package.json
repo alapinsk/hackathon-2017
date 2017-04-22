@@ -6,10 +6,10 @@
   "main": "main.js",
   "nativescript": {
     "id": "org.nativescript.Hackathon",
-    "tns-ios": {
-      "version": "2.3.0"
-    },
     "tns-android": {
+      "version": "2.5.0"
+    },
+    "tns-ios": {
       "version": "2.5.0"
     }
   },

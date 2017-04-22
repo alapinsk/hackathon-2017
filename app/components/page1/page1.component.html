@@ -34,9 +34,9 @@
         <Label class="text-card paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next" colSpan="1" textWrap="true" col="2"></Label>
         <Label class="m-t-5 " horizontalAlignment="center" [text]="selectedWeekend" colSpan="3" row="1" textWrap="true"></Label>
     </GridLayout>
-    <ListView [items]="backendService.flights | async">
+    <ListView [items]="backendService.flights | async" height="100%">
         <template let-item="item">
-            <ScrollView row="0">
+            <ScrollView>
                 <StackLayout>
                     <CardView class="cardStyle" margin="10" elevation="10" radius="5">
                         <GridLayout rows="*,*" columns="2*, *">
@@ -48,7 +48,7 @@
                                 <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
                                 <StackLayout class="hr-light"></StackLayout>
                                 <GridLayout class="yellow" rows="*,*" columns="2*,*">
-                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="item.weather.temp +'°C ' + item.weather.desc" row="1" col="0" textWrap="true" col="0"></Label>
+                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="item.weather.temp +'°C ' + item.weather.desc" row="1" col="0" textWrap="true"></Label>
                                     <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: ' + item.beer  + ' ' + item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
                                 </GridLayout>
                             </StackLayout>
