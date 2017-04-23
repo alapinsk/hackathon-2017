@@ -8,6 +8,7 @@ export class Leg {
     arrivalTime: string;
     price: number;
     currency: string;
+    ryrDate: string;
     
 
     constructor (leg) {
@@ -20,5 +21,6 @@ export class Leg {
         this.date = departureDate.format("Do MMM YYYY");
         this.price = leg.price.value;
         this.currency = leg.price.currencySymbol;
+        this.ryrDate = departureDate.format('DD/MM/YYYY');
     }
 } 

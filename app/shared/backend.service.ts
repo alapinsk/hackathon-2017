@@ -13,6 +13,7 @@ import { Weather } from "./models/weather.model";
 
 import geolocation = require("nativescript-geolocation");
 import * as enums_1 from "ui/enums";
+import * as utils from "utils/utils";
 
 @Injectable()
 export class BackendService {
@@ -50,6 +51,12 @@ export class BackendService {
     }
   }
 
+  generateAndOpenRyanairWebsite(flight: Flight){
+    let ryanUrl = `https://m.ryanair.com/Planning/SelectFlight?Trip.RoundTrip=true&Trip.Origin=${encodeURIComponent(this.currentAirport.code)}&Trip.Destination=${encodeURIComponent(flight.outbound.code)}&Trip.DepartureDate=${encodeURIComponent(flight.outbound.ryrDate)}&Trip.ReturnDate=${encodeURIComponent(flight.inbound.ryrDate)}&Trip.Adults=1&Trip.Teens=0&Trip.Children=0&Trip.Infants=0`;
+    console.log(ryanUrl);
+    utils.openUrl(ryanUrl);
+ }
+
   getGeoLocation () {
         if (!geolocation.isEnabled()) {
             geolocation.enableLocationRequest();
@@ -62,7 +69,7 @@ export class BackendService {
        }).share()
 }
   
-  getNearbyAirports(location, limit = "5") {
+  getNearbyAirports(location, limit = "10") {
         let params: URLSearchParams = new URLSearchParams;
         params.set('apikey', Password.apikey);
         params.set('latitude', location.latitude + "")
@@ -87,6 +94,7 @@ getAllFlights( dates) {
     params.set('outboundDepartureDateTo', dates[1])
     params.set('inboundDepartureDateFrom', dates[2])
     params.set('inboundDepartureDateTo', dates[3])
+    console.log(`${Config.apiUrl} ${this.currentAirport.code} ${dates[0]} ${dates[1]} ${dates[2]} ${dates[3]}`);
     this.options.search = params;
     return this.http.get(
       Config.apiUrl + "farefinder/3/roundTripFares",
@@ -94,7 +102,6 @@ getAllFlights( dates) {
     )
     .map(response => response.json())
     .map((response) => {
-      console.log("flights")
       this.publishFlights(response);
     })
     .catch(this.handleErrors);
@@ -114,9 +121,7 @@ getWeather(airport) {
     )
     .map(response => response.json())
     .map((response) => {
-      //console.log(JSON.stringify(response))
       let weather = new Weather(response);
-      console.log(weather.desc);
       return weather;
     })
     .catch(this.handleErrors);
@@ -136,19 +141,23 @@ getWeather(airport) {
 
  publishFlights(response){
    this.flightList = [];
-   response.fares.forEach(route => {
-      let flight =  new Flight(route) 
-      this.getWeather(flight.outbound.destination).subscribe((weather) => {
-         console.log("woooot!")
-         flight.weather = weather; 
-         this.flightList.push(flight)
-         
-       },(error)=>{},()=>{
-         this.zone.run(() => {
-          this.flights.next([...this.flightList]);
-        });
-      }) 
-    });
+   if(!response.total){
+     this.resetFlights();
+     alert('There are no flights available for this period.');
+   }else{
+    response.fares.forEach(route => {
+        let flight =  new Flight(route) 
+        this.getWeather(flight.outbound.destination).subscribe((weather) => {
+          flight.weather = weather; 
+          this.flightList.push(flight)
+          
+        },(error)=>{},()=>{
+          this.zone.run(() => {
+            this.flights.next([...this.flightList]);
+          });
+        }) 
+      });
+   }
  }
 
  resetFlights(){

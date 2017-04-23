@@ -12,13 +12,9 @@ ActionBar {
     position: absolute;
 }
 
-.text-card {
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
 .hover-img {
-    font-size: 18px;
+    font-size: 16;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -33,6 +29,23 @@ label {
 
 .paginator {
     color: #2091EB;
+    font-size: 12;
+    background-color: #fff;
+}
+
+.selected-weekend {
+    color: #2091EB;
+    font-size: 12;
+    background-color: #fff;
+}
+
+.selected-airport {
+    color: #2091EB;
+    background-color: #fff;
+}
+
+.select-grid {
+    background-color: #F1C933;
 }
 
 .info {
@@ -51,4 +64,13 @@ label {
 
 .my-city {
     font-weight: bold;
+}
+
+Button{
+    color: #fff;
+    font-size: 16;
+    border-width: 0.1px;
+    margin-bottom:0.1px;
+    background-color: #F1C933;
+    text-transform: uppercase;
 }

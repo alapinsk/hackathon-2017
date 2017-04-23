@@ -8,6 +8,7 @@ import { Airport } from "../../shared/models/airport.model";
 @Component({
     selector: "page2",
     templateUrl: "./components/page2/page2.component.html",
+    styleUrls: ["./components/page2/page2.component.css"]
 })
 export class Page2 implements OnInit {
 

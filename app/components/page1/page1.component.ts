@@ -33,8 +33,9 @@ export class Page1 implements OnInit {
         
     }
 
-    public ngOnInit() {
+    ngOnInit() {
         console.log("OnInit")
+        console.log(this.getWeekend());
         this.backendService.loadData(this.getWeekend());
     }
 
