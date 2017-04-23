@@ -1,21 +1,28 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
-import {Router} from "@angular/router";
-import * as Toast from 'nativescript-toast';
+import { RouterExtensions } from "nativescript-angular/router";
+import { BackendService } from "../../shared";
+import { Page } from "ui/page";
+import { Airport } from "../../shared/models/airport.model";
 
 @Component({
     selector: "page2",
     templateUrl: "./components/page2/page2.component.html",
 })
-export class Page2 {
+export class Page2 implements OnInit {
 
-    public constructor(private location: Location, private router: Router) {
+    public constructor(private location: Location, private router: RouterExtensions, 
+                       private backendService: BackendService, private page: Page) {
+                        
     }
 
-    public test() {
-        console.log("Bum bum bum!");
-        Toast.makeText("Wooot!").show();
-        this.location.back();
+    ngOnInit(){
+        this.page.actionBarHidden = true;  
+    }
+
+    public changeAirport(value: Airport) {
+        this.backendService.setCurrentAirport(value);
+        this.router.navigate(["page1"], { clearHistory: true });
     }
 
 }

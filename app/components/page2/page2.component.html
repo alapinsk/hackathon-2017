@@ -1,6 +1,9 @@
-<ActionBar title="Page2">
-    <NavigationButton text="Back" (tap)="navigateToPage3()"></NavigationButton>
-</ActionBar>
-<StackLayout class="form">
-
+<StackLayout class="m-t-10">
+    <ListView [items]="backendService.airports | async">
+        <template let-item="item">
+            <GridLayout (tap)="changeAirport(item)">
+                <Label [text]="item.name"></Label>
+            </GridLayout>
+        </template>
+    </ListView>
 </StackLayout>

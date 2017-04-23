@@ -1,7 +1,8 @@
-import {Component, OnInit, ChangeDetectionStrategy, EventEmitter} from "@angular/core";
+import {Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input} from "@angular/core";
 import {Location} from "@angular/common";
 import {Http, Headers, RequestOptions} from "@angular/http"
 import {Router} from "@angular/router";
+import * as listViewModule from "ui/list-view";
 
 import * as Utility from "utils/utils";
 import { BackendService } from "../../shared";
@@ -19,6 +20,8 @@ import * as moment from "moment"
 })
 export class Page1 implements OnInit {
 
+    @Input() row;
+
     selectedWeekend: string = "20/12/2017 - 22/12/2017";
     currentWeek: number = 0;
     format: string = "YYYY-MM-DD"
@@ -31,40 +34,10 @@ export class Page1 implements OnInit {
     }
 
     public ngOnInit() {
-        this.location.subscribe(() => { //on return load again 
-            this.getWeekend();
-            this.loadData();
-        });
-        this.getWeekend();
-        this.loadData();
-    }
-    
-    private loadData() {
-        console.log("Hoorraayy!");
-        this.backendService.getGeoLocation().subscribe((location) => {
-            console.log("Hoorraayy!");
-            this.backendService.getNearbyAirports(location).subscribe((result) => {
-                console.log("Hoorraayy!");
-                this.backendService.getAllFlights(this.getWeekend()).subscribe((result) => {
-                    console.log("Hoorraayy!");
-                   
-                })
-            })
-        })
+        console.log("OnInit")
+        this.backendService.loadData(this.getWeekend());
     }
 
-     private loadFlights(airport) {
-        this.backendService.getAllFlights(this.getWeekend())
-        .subscribe(
-            (result) => {
-                // console.log("Success! ")
-                // console.dump(result);
-            },
-            (error) => {
-            alert("An error occured!" + error);
-            }
-        );
-    }
 
     getWeekend() {
         let week = ([5, 6, 7].indexOf(moment().isoWeekday()))? 1: 0;
@@ -79,15 +52,16 @@ export class Page1 implements OnInit {
     selectorWeekend(back = false) {
         if (!back) {
             this.currentWeek += 1
-            this.loadFlights(this.airportCode);
+            this.backendService.loadData(this.getWeekend());
         }
         else {
             this.currentWeek = (this.currentWeek === 0) ? 0 : this.currentWeek - 1;
-            this.loadFlights(this.airportCode);
+            this.backendService.loadData(this.getWeekend());
         }
     }
 
     public navigateToPage2() {
+        this.backendService.resetFlights();
         this.router.navigate(["page2"]);
     }
 

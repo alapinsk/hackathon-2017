@@ -22,15 +22,34 @@ export class BackendService {
 
   public airportList: Airport[];
   public flightList: Flight[]; 
-  private currentAirportCode: string;
+  public currentAirport: Airport = new Airport("","");
+  
+  public isLoading = false;
 
   constructor(private options: RequestOptions, private http: Http, private zone: NgZone) {}
 
 
-  setCurrentAirportCode(value: string){
-    let airport: Airport[] = this.airportList.filter((airport) => { return airport.name = value});
-    this.currentAirportCode = airport[0].code;
+  setCurrentAirport(airport: Airport){
+    this.currentAirport = airport;
   }
+
+  loadData(weekend){
+    this.isLoading = true;
+    if(this.currentAirport.code){
+      this.getAllFlights(weekend).subscribe((result) => {
+                      this.isLoading = false;
+      })
+    }else{
+      this.getGeoLocation().subscribe((location) => {
+              this.getNearbyAirports(location).subscribe((result) => {
+                  this.getAllFlights(weekend).subscribe((result) => {
+                      this.isLoading = false;
+                  })
+              })
+      })
+    }
+  }
+
   getGeoLocation () {
         if (!geolocation.isEnabled()) {
             geolocation.enableLocationRequest();
@@ -39,11 +58,11 @@ export class BackendService {
             geolocation.getCurrentLocation({ desiredAccuracy: enums_1.Accuracy.high, updateDistance: 0.1, maximumAge: 5000, timeout: 20000 })    
              .then((result) => {
                  observer.next(result);
-          })
-      }).share()
+            })
+       }).share()
 }
   
-  getNearbyAirports(location, limit = "1") {
+  getNearbyAirports(location, limit = "5") {
         let params: URLSearchParams = new URLSearchParams;
         params.set('apikey', Password.apikey);
         params.set('latitude', location.latitude + "")
@@ -63,7 +82,7 @@ export class BackendService {
 getAllFlights( dates) {
     let params: URLSearchParams = new URLSearchParams;
     params.set('apikey', Password.apikey);
-    params.set('departureAirportIataCode', this.currentAirportCode)
+    params.set('departureAirportIataCode', this.currentAirport.code)
     params.set('outboundDepartureDateFrom', dates[0])
     params.set('outboundDepartureDateTo', dates[1])
     params.set('inboundDepartureDateFrom', dates[2])
@@ -108,7 +127,7 @@ getWeather(airport) {
    this.airportList = response.map(airport => {
             return new Airport(airport.iataCode, airport.name)         
    });
-   this.currentAirportCode = this.airportList[0].code;
+   this.currentAirport = this.airportList[0];
    
    this.zone.run(() => {
       this.airports.next([...this.airportList]);
@@ -130,6 +149,13 @@ getWeather(airport) {
         });
       }) 
     });
+ }
+
+ resetFlights(){
+   this.flightList = [];
+   this.zone.run(() => {
+          this.flights.next([...this.flightList]);
+   });
  }
 
 

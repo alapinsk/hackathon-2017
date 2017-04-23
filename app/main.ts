@@ -2,10 +2,11 @@ import { platformNativeScriptDynamic, NativeScriptModule } from "nativescript-an
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
-import { NgModule } from "@angular/core";
+import { NgModule, NO_ERRORS_SCHEMA  } from "@angular/core";
 import { AppRoutes, AppComponents } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { BackendService } from "./shared";
+ 
 
 @NgModule({
     declarations: [AppComponent, ...AppComponents],
@@ -17,7 +18,8 @@ import { BackendService } from "./shared";
         NativeScriptRouterModule,
         NativeScriptRouterModule.forRoot(AppRoutes)
     ],
-    providers: [BackendService]
+    providers: [BackendService],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 class AppComponentModule {}
 
