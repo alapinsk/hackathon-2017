@@ -1,0 +1,47 @@
+{
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "readme": "NativeScript Application",
+  "repository": "<fill-your-repository-here>",
+  "main": "main.js",
+  "nativescript": {
+    "id": "org.nativescript.Hackathon",
+    "tns-android": {
+      "version": "2.5.0"
+    },
+    "tns-ios": {
+      "version": "2.5.0"
+    }
+  },
+  "dependencies": {
+    "@angular/common": "2.1.2",
+    "@angular/compiler": "2.1.2",
+    "@angular/core": "2.1.2",
+    "@angular/forms": "2.1.2",
+    "@angular/http": "2.1.2",
+    "@angular/platform-browser": "2.1.2",
+    "@angular/platform-browser-dynamic": "2.1.2",
+    "@angular/router": "3.1.2",
+    "moment": "^2.18.1",
+    "nativescript-angular": "1.1.2",
+    "nativescript-cardview": "^1.3.2",
+    "nativescript-couchbase": "^1.0.12",
+    "nativescript-geolocation": "0.0.19",
+    "nativescript-telerik-ui": "^1.6.2",
+    "nativescript-theme-core": "~1.0.2",
+    "nativescript-toast": "^1.4.0",
+    "reflect-metadata": "~0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "tns-core-modules": "2.3.0"
+  },
+  "devDependencies": {
+    "babel-traverse": "6.18.0",
+    "babel-types": "6.18.0",
+    "babylon": "6.13.1",
+    "lazy": "1.0.11",
+    "nativescript-dev-android-snapshot": "^0.*.*",
+    "nativescript-dev-typescript": "0.3.2",
+    "typescript": "2.0.7",
+    "zone.js": "~0.6.21"
+  }
+}

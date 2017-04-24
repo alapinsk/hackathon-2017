@@ -1,0 +1,63 @@
+<!--<ActionBar title="Your plan for the weekend"></ActionBar>
+<StackLayout class="m-t-10">
+    <GridLayout rows="20,30" columns="*, *">
+        <Label horizontalAlignment="center" class="my-city" text="Dublin" colSpan="3" row="0" textWrap="true"></Label>
+        <Label class="text-card paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="Previous" colSpan="1" textWrap="true" col="0"></Label>
+        <Label class="text-card paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next" colSpan="1" textWrap="true" col="2"></Label>
+        <Label class="m-t-5 " horizontalAlignment="center" [text]="selectedWeekend" colSpan="3" row="1" textWrap="true"></Label>
+    </GridLayout>
+    <ListView [items]="backendService.flights | async">
+        <template let-item="item">
+            <GridLayout rows="*,*" columns="2*, *">
+                <Image [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
+                <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
+                <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
+                <StackLayout row="3" colSpan="3">
+                    <Label class="text-card info" horizontalAlignment="center" [text]="'In:    '+item.outbound.date + ' ' + item.outbound.departureTime + '-' + item.outbound.arrivalTime"></Label>
+                    <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
+                    <StackLayout class="hr-light"></StackLayout>
+                    <GridLayout class="yellow" rows="*,*" columns="2*,*">
+                        <Label class="text-card info black-text" horizontalAlignment="left" [text]="'22°C sunny'" row="1" col="0" textWrap="true" col="0"></Label>
+                        <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: 2 '+ item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </GridLayout>
+        </template>
+    </ListView>
+</StackLayout>-->
+
+<ActionBar title="Choose your weekend"></ActionBar>
+<GridLayout rows="auto,*">
+    <GridLayout class="select-grid" width="100%" height="auto" row="0" rows="auto,auto" columns="auto,*,auto">
+        <Button class="selected-airport" verticalAlignment="center" horizontalAlignment="center" width="100%" height="100%" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" row="0" colSpan="3"></Button>
+        <!--<Button verticalAlignment="center" horizontalAlignment="center" width="100%" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" row="0"></Button>-->
+        <!--<Label horizontalAlignment="center" class="my-city" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" colSpan="3" row="0" textWrap="true"></Label>-->
+        <Button *ngIf="currentWeek!==0" class="paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="<Previous" [isEnabled]="(currentWeek!==0)" textWrap="true" colSpan="1" col="0" row="1" ></Button>
+        <Button class="paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next>" textWrap="true" col="2" row="1" colSpan="1" ></Button>
+        <Button class="selected-weekend" horizontalAlignment="center" [text]="selectedWeekend" row="1" textWrap="false" col="1" width="100%" colSpan="1" ></Button>
+    </GridLayout> 
+    
+    <ListView row="1" [items]="backendService.flights | async">
+        <template let-item="item">
+                <StackLayout>
+                    <CardView class="cardStyle" margin="10" elevation="10" radius="5" (tap)="backendService.generateAndOpenRyanairWebsite(item)">
+                        <GridLayout rows="*,*" columns="2*, *">
+                            <Image  [src]="getImage(item.outbound.code)" stretch="aspectFit" colSpan="2" row="0"></Image>
+                            <Label class="text-card hover-img" horizontalAlignment="left" verticalAlignment="bottom" [text]="item.outbound.destination" row="0" textWrap="true" col="0"></Label>
+                            <Label class="text-card hover-img" horizontalAlignment="right" verticalAlignment="bottom" [text]="item.totalPrice + ' ' + item.currency" textWrap="true" row="0" col="2"></Label>
+                            <StackLayout row="3" colSpan="3">
+                                <Label class="text-card info" horizontalAlignment="center" [text]="'In:    '+item.outbound.date + ' ' + item.outbound.departureTime + '-' + item.outbound.arrivalTime"></Label>
+                                <Label class="text-card info" horizontalAlignment="center" [text]="'Out: '+item.inbound.date + ' ' + item.inbound.departureTime + '-' + item.inbound.arrivalTime"></Label>
+                                <StackLayout class="hr-light"></StackLayout>
+                                <GridLayout class="yellow" rows="*,*" columns="2*,*">
+                                    <Label class="text-card info black-text" horizontalAlignment="left" [text]="item.weather.temp +'°C ' + item.weather.desc" row="1" col="0" textWrap="true"></Label>
+                                    <Label class="text-card info black-text" horizontalAlignment="right" [text]="'Beer: ' + item.beer  + ' ' + item.currency + '/l'" textWrap="true" row="1" col="1"></Label>
+                                </GridLayout>
+                            </StackLayout>
+                        </GridLayout>
+                    </CardView>  
+                </StackLayout>
+        </template>
+    </ListView>   
+    <ActivityIndicator [busy]="backendService.isLoading" [visibility]="backendService.isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+</GridLayout>

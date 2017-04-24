@@ -1,0 +1,12 @@
+npm-debug.log
+.DS_Store
+.vscode
+*.js.map
+app/**/*.js
+hooks/
+lib/
+node_modules/
+platforms/
+tmp/
+typings/
+app/password.ts
