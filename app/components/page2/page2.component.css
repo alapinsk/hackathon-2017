@@ -1,12 +1,13 @@
 ListView {
     background-color: #062B71;
 }
-Button{
-    color: #fff;
+
+Button {
+    color: #062B71;
     font-size: 14;
     background-color: #F1C933;
-    border-radius: 20;
+    border-radius: 1;
     text-transform: uppercase;
-    padding:10;
+    padding: 10;
     margin: 10 0;
 }
