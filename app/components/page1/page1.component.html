@@ -26,12 +26,12 @@
     </ListView>
 </StackLayout>-->
 
-<ActionBar title="Choose your weekend"></ActionBar>
+<ActionBar title="Choose your weekend">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+</ActionBar>
 <GridLayout rows="auto,*">
     <GridLayout class="select-grid" width="100%" height="auto" row="0" rows="auto,auto" columns="auto,*,auto">
         <Button class="selected-airport" verticalAlignment="center" horizontalAlignment="center" width="100%" height="100%" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" row="0" colSpan="3"></Button>
-        <!--<Button verticalAlignment="center" horizontalAlignment="center" width="100%" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" row="0"></Button>-->
-        <!--<Label horizontalAlignment="center" class="my-city" [text]="backendService.currentAirport.name" (tap)="navigateToPage2()" colSpan="3" row="0" textWrap="true"></Label>-->
         <Button *ngIf="currentWeek!==0" class="paginator" (tap)="selectorWeekend(true)" horizontalAlignment="left" text="<Previous" [isEnabled]="(currentWeek!==0)" textWrap="true" colSpan="1" col="0" row="1"></Button>
         <Button class="paginator" (tap)="selectorWeekend()" horizontalAlignment="right" text="Next>" textWrap="true" col="2" row="1" colSpan="1"></Button>
         <Button class="selected-weekend" horizontalAlignment="center" [text]="selectedWeekend" row="1" textWrap="false" col="1" width="100%" colSpan="1"></Button>

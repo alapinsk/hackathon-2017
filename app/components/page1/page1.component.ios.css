@@ -1,0 +1,79 @@
+ActionBar {
+    background-color: #062B71;
+    color: white;
+}
+
+.cardStyle {
+    background-color: #073590;
+}
+
+.centering {
+    left: -500px;
+    position: absolute;
+}
+
+.hover-img {
+    font-size: 16;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+    height: 50px;
+}
+
+label {
+    horizontal-align: center;
+}
+
+.paginator {
+    color: #062B71;
+    font-size: 12;
+    background-color: #fff;
+}
+
+.selected-weekend {
+    color: #062B71;
+    font-size: 12;
+    background-color: #fff;
+}
+
+.selected-airport {
+    color: #062B71;
+    background-color: #fff;
+}
+
+.select-grid {
+    background-color: #F1C933 !important;
+}
+
+.info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.yellow {
+    background-color: #F1C933;
+}
+
+.black-text {
+    color: #2E2E2E;
+}
+
+.my-city {
+    font-weight: bold;
+}
+
+Button {
+    color: #fff;
+    font-size: 16px;
+    border-width: 0.1px;
+    margin-bottom: 0.1px;
+    background-color: #F1C933;
+    text-transform: uppercase;
+}
+
+GridLayout.select-grid {
+    background-color: red;
+}

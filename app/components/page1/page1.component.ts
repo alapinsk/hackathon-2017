@@ -14,7 +14,7 @@ import * as moment from "moment"
 
 @Component({
     selector: "page1",
-    styleUrls: ["./components/page1/page1.component.css"],
+    styleUrls: ["./components/page1/page1.component.css", "./components/page1/page1.component.common.css"],
     templateUrl: "./components/page1/page1.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })

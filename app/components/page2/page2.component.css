@@ -1,5 +1,6 @@
 ListView {
     background-color: #062B71;
+    height: 100%;
 }
 
 Button {
@@ -10,4 +11,9 @@ Button {
     text-transform: uppercase;
     padding: 10;
     margin: 10 0;
+    width: 100%;
+}
+
+GridLayout {
+    background: transparent;
 }

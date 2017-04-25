@@ -1,6 +1,8 @@
-<ListView [items]="backendService.airports | async" height="100%" verticalAlignment="center" horizontalAlignment="center">
-    <template let-item="item">
-            <Button (tap)="changeAirport(item)" [text]="item.name" 
-            verticalAlignment="center" horizontalAlignment="center" width="100%"></Button>
+<GridLayout>
+    <ListView [items]="backendService.airports | async" height="100%" verticalAlignment="center" horizontalAlignment="center">
+        <template let-item="item">
+            <Button (tap)="changeAirport(item)" [text]="item.name"
+                    verticalAlignment="center" horizontalAlignment="center"></Button>
         </template>
-</ListView>
+    </ListView>
+</GridLayout>

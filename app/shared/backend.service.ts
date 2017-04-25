@@ -10,6 +10,7 @@ import { Config } from "./config";
 import { Airport } from "./models/airport.model";
 import { Flight } from "./models/flight.model";
 import { Weather } from "./models/weather.model";
+import app = require("application");
 
 import geolocation = require("nativescript-geolocation");
 import * as enums_1 from "ui/enums";
@@ -60,13 +61,21 @@ export class BackendService {
   getGeoLocation () {
         if (!geolocation.isEnabled()) {
             geolocation.enableLocationRequest();
-        }         
-       return new Observable<any> ((observer: any) => {
-            geolocation.getCurrentLocation({ desiredAccuracy: enums_1.Accuracy.high, updateDistance: 0.1, maximumAge: 5000, timeout: 20000 })    
-             .then((result) => {
-                 observer.next(result);
-            })
-       }).share()
+        }
+      return new Observable<any>((observer: any) => {
+          if (app.ios) {
+              observer.next({latitude: 51.109843, longitude: 17.033244});
+          } else {
+              geolocation.getCurrentLocation({
+                  desiredAccuracy: enums_1.Accuracy.high,
+                  updateDistance: 0.1,
+                  maximumAge: 5000,
+                  timeout: 20000
+              }).then((result) => {
+                  observer.next(result);
+              });
+          }
+      }).share();
 }
   
   getNearbyAirports(location, limit = "10") {
