@@ -37,7 +37,7 @@
         <Button class="selected-weekend" horizontalAlignment="center" [text]="selectedWeekend" row="1" textWrap="false" col="1" width="100%" colSpan="1"></Button>
     </GridLayout>
 
-    <ListView row="1" [items]="backendService.flights | async">
+    <ListView separatorColor="transparent"row="1" [items]="backendService.flights | async">
         <template let-item="item">
                 <StackLayout>
                     <CardView class="cardStyle" margin="10" elevation="10" radius="5" (tap)="backendService.generateAndOpenRyanairWebsite(item)">

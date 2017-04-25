@@ -1,8 +1,10 @@
 <GridLayout>
-    <ListView [items]="backendService.airports | async" height="100%" verticalAlignment="center" horizontalAlignment="center">
+    <ListView  separatorColor="transparent" [items]="backendService.airports | async" height="100%" verticalAlignment="center" horizontalAlignment="center">
         <template let-item="item">
-            <Button (tap)="changeAirport(item)" [text]="item.name"
-                    verticalAlignment="center" horizontalAlignment="center"></Button>
+            <StackLayout>
+                <Button (tap)="changeAirport(item)" [text]="item.name"
+                        verticalAlignment="center" horizontalAlignment="center"></Button>
+            </StackLayout>
         </template>
     </ListView>
 </GridLayout>

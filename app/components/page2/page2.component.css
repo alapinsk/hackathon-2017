@@ -14,6 +14,6 @@ Button {
     width: 100%;
 }
 
-GridLayout {
-    background: transparent;
+StackLayout {
+    background-color: #062B71;
 }
