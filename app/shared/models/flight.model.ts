@@ -11,6 +11,7 @@ export class Flight {
 
     constructor (route) {
         this.outbound = new Leg(route.outbound);
+        console.log(route.outbound.arrivalAirport.iataCode.toLowerCase())
         this.inbound = new Leg(route.inbound);
         this.totalPrice = route.summary.price.value;
         this.currency = route.summary.price.currencySymbol;

@@ -41,7 +41,7 @@ export class Page1 implements OnInit {
 
 
     getWeekend() {
-        let week = ([5, 6, 7].indexOf(moment().isoWeekday()))? 1: 0;
+        let week = (~[5, 6, 7].indexOf(moment().isoWeekday()))? 1: 0;
         const outboundDateMin = moment().add(week + this.currentWeek, 'weeks').startOf('isoWeek').add('days', 4);
         const outboundDateMax = outboundDateMin.clone().add('days', 1);
         const inboundDateMin = outboundDateMax.clone();
