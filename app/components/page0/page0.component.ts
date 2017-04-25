@@ -12,7 +12,7 @@ import geolocation = require("nativescript-geolocation");
 @Component({
     selector: "page0",
     templateUrl: "./components/page0/page0.component.html",
-    styleUrls: ["./components/page0/page0-common.css", "./components/page0/page0.component.css"]
+    styleUrls: ["./components/page0/page0.common.css", "./components/page0/page0.component.css"]
 })
 export class Page0 implements OnInit {
     @ViewChild("initialContainer") initialContainer: ElementRef;
