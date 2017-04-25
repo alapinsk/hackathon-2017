@@ -30,21 +30,30 @@ label {
     color: #062B71;
     font-size: 12;
     background-color: #fff;
+    border-width: 2;
+    border-color: #F1C933;
 }
 
 .selected-weekend {
     color: #062B71;
     font-size: 12;
+    padding: 5;
     background-color: #fff;
+    border-width: 2;
+    border-color: #F1C933
 }
 
 .selected-airport {
     color: #062B71;
+    padding: 5;
     background-color: #fff;
+    border-width: 2;
+    border-color: #F1C933
 }
 
 .select-grid {
     background-color: #F1C933;
+    border-width: 2;
 }
 
 .info {
